@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.Python
+.venv/
+venv/
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# Env & secrets
+.env
+.env.*
+
+# Build artifacts
+dist/
+build/
+
+# Vector index
+vector_index/
+
+# Notebooks
+.ipynb_checkpoints/
+
