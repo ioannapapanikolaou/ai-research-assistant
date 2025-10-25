@@ -1,9 +1,10 @@
-langchain>=0.2.10,<0.3.0
-langchain-openai>=0.1.22
-langchain-community>=0.2.10
-langchain-text-splitters>=0.2.2
-openai>=1.44.0
-faiss-cpu>=1.8.0.post1
+langchain==0.3.27
+langchain-openai==0.3.35
+langchain-community==0.3.31
+langchain-text-splitters==0.3.11
+
+openai>=1.44.0,<2.0.0
+faiss-cpu==1.8.0.post1
 tiktoken>=0.7.0
 python-dotenv>=1.0.1
 fastapi>=0.115.0
@@ -13,3 +14,5 @@ unstructured>=0.15.0
 streamlit>=1.38.0
 pytest>=8.3.2
 
+sentence-transformers>=2.7.0
+huggingface-hub>=0.25.0

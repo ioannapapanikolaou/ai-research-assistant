@@ -33,10 +33,33 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-2) Copy env template and add your key:
+2) Configure provider and environment:
 ```bash
-cp .env.example .env
-# edit .env with OPENAI_API_KEY=...
+# Create .env and choose providers
+cat > .env <<'ENV'
+# LLM provider: ollama or openai
+LLM_PROVIDER=ollama
+
+# Embeddings provider: hf (HuggingFace), ollama, or openai
+EMBEDDINGS_PROVIDER=hf
+
+# OpenAI (paid)
+# OPENAI_API_KEY=
+# MODEL_NAME=gpt-4o-mini
+# EMBEDDING_MODEL=text-embedding-3-small
+
+# Ollama (local)
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=llama3:8b-instruct
+OLLAMA_EMBED_MODEL=nomic-embed-text
+
+# HuggingFace (free/local embeddings)
+HF_EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+
+# Paths
+INDEX_DIR=vector_index
+DATA_DIR=data
+ENV
 ```
 
 3) Put a couple PDFs or .txt files under `data/`.
@@ -51,11 +74,22 @@ python main.py build-index
 python main.py ask --q "Summarize the main findings"
 ```
 
-6) Run FastAPI:
+6) Run FastAPI (ensure venv is active; use module form to avoid system Python):
 ```bash
-uvicorn src.api.app:app --reload
+python -m uvicorn src.api.app:app --reload
 ```
 Visit `http://localhost:8000/docs` or `http://localhost:8000/ask?query=Your+question`.
+
+### Using Ollama (free/local)
+Install and run Ollama, then pull models:
+```bash
+brew install ollama
+ollama serve &
+ollama pull llama3:8b-instruct
+ollama pull nomic-embed-text
+```
+
+Set `LLM_PROVIDER=ollama` and prefer `EMBEDDINGS_PROVIDER=hf` for stability. Then build the index and run the API as usual.
 
 ### Docker
 ```bash
